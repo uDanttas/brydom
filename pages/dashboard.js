@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import Menu from '@/components/Menu'
+import Menu from '../components/Menu'
 import { useRouter } from 'next/router'
 
 export default function Dashboard() {

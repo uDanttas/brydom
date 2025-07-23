@@ -1,6 +1,6 @@
 // pages/bhacanna.js
-import Layout from "@/components/Layout";
-import BhacannaBots from "@/components/BhacannaBots";
+import Layout from "../components/Layout";
+import BhacannaBots from "../components/BhacannaBots";
 
 export default function Bhacanna() {
   return (

@@ -1,6 +1,6 @@
 // pages/grafico.js
-import Layout from "@/components/Layout";
-import GraphPanel from "@/components/GraphPanel";
+import Layout from "../components/Layout";
+import GraphPanel from "../components/GraphPanel";
 
 export default function Grafico() {
   return (

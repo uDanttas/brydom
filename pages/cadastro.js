@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useRouter } from 'next/router'
-import Menu from '@/components/Menu'
+import Menu from '../components/Menu'
 
 export default function Cadastro() {
   const [cpf, setCpf] = useState('')
