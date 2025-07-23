@@ -1,0 +1,35 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Usuario {
+  cpf       String   @id
+  senha     String
+  saldo     Float    @default(0)
+  bots      Bot[]
+  historico Operacao[]
+}
+
+model Bot {
+  id          Int      @id @default(autoincrement())
+  usuarioCpf  String
+  saldo       Float    @default(0)
+  ativo       Boolean  @default(true)
+  usuario     Usuario  @relation(fields: [usuarioCpf], references: [cpf])
+  operacoes   Operacao[]
+}
+
+model Operacao {
+  id          Int      @id @default(autoincrement())
+  usuarioCpf  String
+  botId       Int
+  valor       Float
+  timestamp   DateTime @default(now())
+  usuario     Usuario  @relation(fields: [usuarioCpf], references: [cpf])
+  bot         Bot      @relation(fields: [botId], references: [id])
+}
