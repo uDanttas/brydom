@@ -1,42 +1,28 @@
-// prisma/seed.js
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
 async function main() {
-  await prisma.mestre.create({
-    data: {
-      nome: 'Dom Mestre',
+  // Cria o usuário mestre se ainda não existir
+  const mestre = await prisma.usuario.upsert({
+    where: { cpf: '00000000000' },
+    update: {},
+    create: {
+      cpf: '00000000000',
       senha: 'sagui',
-      saldo: 0,
+      saldo: 10000,
+      tipo: 'mestre',
     },
   });
 
-  await prisma.cliente.create({
-    data: {
-      cpf: '11122233344',
-      senha: 'leao',
-      saldo: 1000,
-      bots: {
-        create: [
-          { ativo: true, metaBatida: false, lucroHoje: 0 },
-          { ativo: true, metaBatida: false, lucroHoje: 0 },
-        ],
-      },
-    },
-  });
-
-  for (let i = 0; i < 3000; i++) {
-    await prisma.bhacanna.create({
-      data: { lucro: 0 },
-    });
-  }
-
-  console.log('✅ Seed finalizado!');
+  console.log('Usuário mestre criado ou já existente:', mestre.cpf);
 }
 
 main()
-  .catch(e => {
-    console.error(e);
-    process.exit(1);
+  .then(() => {
+    console.log('✅ Seed finalizado com sucesso');
+    return prisma.$disconnect();
   })
-  .finally(() => prisma.$disconnect());
+  .catch((e) => {
+    console.error('❌ Erro no seed:', e);
+    return prisma.$disconnect();
+  });
